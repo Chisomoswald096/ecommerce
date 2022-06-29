@@ -18,10 +18,7 @@ app.use(cors());
 
 
 
-//home page
-app.get("/", function (req, res) {
-    res.json("This is the ecomerce backend api")
-})
+
 
 //register page
 app.post("/users/register", async function (req, res) {
