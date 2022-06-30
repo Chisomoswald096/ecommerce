@@ -120,14 +120,6 @@ app.get("/products", async function (req, res) {
     const products = await Product.find({...nameFilter});
     res.send(products)
 })
-//DELETE a product
-// /:id = req.param
-app.delete("/products/:id", async function (req, res) {
-    const productId = req.params.id;
-    const product = await Product.findById(productId);
-    await product.deleteOne();
-    console.log("product deleted successfully");
-})
 
 //get a product
 app.get("/products/:id", async function (req, res) {
@@ -139,6 +131,17 @@ app.get("/products/:id", async function (req, res) {
         console.log("Product was not found");
     }
 })
+
+//DELETE a product
+// /:id = req.param
+app.delete("/products/:id", async function (req, res) {
+    const productId = req.params.id;
+    const product = await Product.findById(productId);
+    await product.deleteOne();
+    console.log("product deleted successfully");
+})
+
+
 //update a product
 app.put("/products/:id", async function (req, res) {
     const productId = req.params.id;

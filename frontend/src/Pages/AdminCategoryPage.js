@@ -1,16 +1,29 @@
 import axios from "axios"
 import { useEffect, useState } from "react"
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 
 
 
-export default function AdminCategoryPage() {
+export default function AdminCategoryPage(props) {
+   
     const [category, setCategory] = useState([])
+    const [success, setSuccess] = useState("")
+
 
     async function getCategory() {
         const { data } = await axios.get("http://localhost:5000/category");
         setCategory(data);
     }
+const history = useHistory();
+    useEffect(() => {
+        const userInfo = JSON.parse(localStorage.getItem("userInfo"));
+        !userInfo || !userInfo.isAdmin && props.history.push("/");
+        if (success) {
+            history.push("/admin-products");
+        }
+    }, [history, success]);
+
+
     async function deleteHandler(id) {
         window.location.reload();
         const { data } = await axios.delete(`http://localhost:5000/category/${id}`);

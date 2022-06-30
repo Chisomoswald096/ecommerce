@@ -9,6 +9,8 @@ export default function AddProduct(props) {
     const [image, setImage] = useState("");
     const [price, setPrice] = useState("");
     const [loading, setLoading] = useState(false);
+    const [uploading, setUploading] = useState(false);
+
     const [categories, setCategories] = useState([])
     const [category, setCategory] = useState("")
 
@@ -28,6 +30,23 @@ export default function AddProduct(props) {
         history.push("/adminproduct");
     }
 
+async function uploadHandler(e) {
+    setUploading(true);
+    const files = e.target.files[0];
+    const data = new FormData();
+    data.append("file", files);
+    data.append("cloud_name", "do47vawm4" );
+    data.append("upload_preset", "pedromontage");
+    fetch("https://api.cloudinary.com/v1_1/do47vawm4/image/upload", {method : "post", body:data})
+    .then(res => res.json())
+    .then(data => {
+      setImage(data.url);
+      setUploading(false)
+    })
+    .catch(err => console.log(err))
+};
+
+
     async function getCategory(params) {
         const { data } = await axios.get("http://localhost:5000/category");
         setCategories(data);
@@ -42,9 +61,12 @@ export default function AddProduct(props) {
     return < > <div>
         {loading ? <Loading /> : <form onSubmit={submitHandler} className="form">
             <h3>Add Product</h3>
+            {uploading && <div>..Uploading...</div> }
+            <input type="file" onChange={uploadHandler} className="form-control"   />
+            <br />
             <input value={name} onChange={e => setName(e.target.value)} type="text" placeholder="product Name" />
             <br />
-            <input value={image} onChange={e => setImage(e.target.value)} type="text" placeholder="product Image" />
+            <input value={image} onChange={e => setImage(e.target.value)} type="text" disabled placeholder="product Image" />
             <br />
             <input value={price} onChange={e => setPrice(e.target.value)} type="number" placeholder="product Price" />
             <br />
@@ -57,7 +79,9 @@ export default function AddProduct(props) {
                 }
             </select>
             <br />
-            <button type="submit" className="btn btn-danger">update</button>
+           { uploading && <button onClick={submitHandler} type="button" disabled className="btn btn-danger">update</button>}
+           { !uploading && <button onClick={submitHandler} type="button" className="btn btn-danger">update</button>}
+
         </form>}
 
     </div>

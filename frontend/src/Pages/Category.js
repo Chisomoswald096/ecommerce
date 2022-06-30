@@ -13,7 +13,7 @@ export default function CategoryPage(props) {
 
     useEffect(() => {
         const userInfo = JSON.parse(localStorage.getItem("userInfo"));
-        !userInfo && props.history.push("/");
+        !userInfo || !userInfo.isAdmin && props.history.push("/");
     });
  
 
