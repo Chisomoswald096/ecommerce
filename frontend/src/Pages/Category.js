@@ -1,9 +1,12 @@
 import axios from "axios";
 import { useEffect, useState } from "react"
+import { useHistory } from "react-router-dom";
 
 export default function CategoryPage(props) {
     const CategoryId = props.match.params.id;
     const [Category, setCategory] = useState("");
+    const [success, setSuccess] = useState("");
+
 
     async function getCategory(categoryId) {
         const { data } = await axios.get(`http://localhost:5000/category/${categoryId}`);
@@ -11,10 +14,14 @@ export default function CategoryPage(props) {
         console.log(data)
     }
 
-    useEffect(() => {
-        const userInfo = JSON.parse(localStorage.getItem("userInfo"));
-        !userInfo || !userInfo.isAdmin && props.history.push("/");
-    });
+    const history = useHistory();
+useEffect(() => {
+   const userInfo = JSON.parse(localStorage.getItem("userInfo"));
+   !userInfo || !userInfo.isAdmin && props.history.push("/");
+   if (success) {
+       history.push("/admin-products");
+   }
+}, [history, success]);
  
 
      useEffect(() => {

@@ -1,7 +1,12 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
+import { useHistory } from 'react-router-dom';
+
+
 export default function ResultPage(props) {
   const [products, setProducts] = useState("")
+const[success, setSuccess] = useState("");
+
 
   const name = props.match.params.name;
   
@@ -16,6 +21,17 @@ export default function ResultPage(props) {
 
 
   }, [setProducts])
+const history = useHistory();
+  useEffect(() => {
+    const userInfo = JSON.parse(localStorage.getItem("userInfo"));
+    !userInfo ||!userInfo.isAdmin && props.history.push("/");
+        if (success) {
+            history.push("/admin-products");
+        }
+     }, [history, success]);
+
+
+
   return <>
     
     <div>

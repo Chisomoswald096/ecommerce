@@ -4,6 +4,8 @@ import { useHistory } from "react-router-dom";
 
 export default function EditCategoryPage(props) {
     const [name, setName] = useState("")
+const[success, setSuccess] = useState("");
+
     const categoryId = props.match.params.id;
 
     async function getCategory(categoryId) {
@@ -15,6 +17,14 @@ export default function EditCategoryPage(props) {
 
     }, [categoryId])
 
+    useEffect(() => {
+        const userInfo = JSON.parse(localStorage.getItem("userInfo"));
+        !userInfo ||!userInfo.isAdmin && props.history.push("/");
+            if (success) {
+                history.push("/admin-products");
+            }
+         }, [history, success]);
+    
 
     const history = useHistory();
     async function submitHandler(e) {
@@ -23,6 +33,16 @@ export default function EditCategoryPage(props) {
         const { data } = await axios.put(`http://localhost:5000/category/${categoryId}`, { name })
         history.push("/admin-category");
     }
+
+
+    useEffect(() => {
+        const userInfo = JSON.parse(localStorage.getItem("userInfo"));
+        !userInfo || !userInfo.isAdmin && props.history.push("/");
+        if (success) {
+            history.push("/admin-products");
+        }
+     }, [history, success]);
+
 
     return <>
         <div>

@@ -1,7 +1,10 @@
 import axios from "axios"
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
+import { useHistory } from "react-router-dom";
 
 const Cartpage = (props) => {
+const[success, setSuccess] = useState("")
+
     const productId = props.match.params.id;
     let qty = 1;
 
@@ -26,6 +29,18 @@ const Cartpage = (props) => {
         props.history.push("/cart")
         window.location.reload();
     }
+
+
+    const history = useHistory();
+useEffect(() => {
+   const userInfo = JSON.parse(localStorage.getItem("userInfo"));
+   !userInfo || !userInfo.isAdmin && props.history.push("/");
+   if (success) {
+       history.push("/admin-products");
+   }
+}, [history, success]);
+
+
 
     const deleteItemHandler = id => {
         cartItems = cartItems.filter(x => x._id !== id);

@@ -1,12 +1,13 @@
 import axios from "axios";
 import { useEffect, useState } from "react"
+import { useHistory } from "react-router-dom";
 
-
-export default function AdminDashBoardPage(){
+export default function AdminDashBoardPage(props){
    const[products, setProduct]= useState(0);
    const[category, setCategory]= useState(0);
    const[users, setUsers]= useState(0);
    const[orders, setOrders]= useState(0);
+   const[success, setSuccess] = useState("");
 
 
 async function getSummary(){
@@ -16,6 +17,14 @@ const {data} = await axios.get("http://localhost:5000/summary");
   setCategory(data.category)
   setOrders(data.orders)
 }
+const history = useHistory();
+useEffect(() => {
+   const userInfo = JSON.parse(localStorage.getItem("userInfo"));
+   !userInfo || !userInfo.isAdmin && props.history.push("/");
+   if (success) {
+       history.push("/admin-products");
+   }
+}, [history, success]);
 
 useEffect(()=>{
    getSummary();

@@ -6,12 +6,18 @@ import { useHistory } from "react-router-dom";
 export default function Productpage(props) {
     const productId = props.match.params.id;
     const [product, setProduct] = useState("");
+    const [success, setSuccess] = useState("");
+    
 
- 
+ const history = useHistory();
     useEffect(() => {
         const userInfo = JSON.parse(localStorage.getItem("userInfo"));
         !userInfo || !userInfo.isAdmin && props.history.push("/");
-    });
+            if (success) {
+                history.push("/admin-products");
+            }
+         }, [history, success]);
+
  
 
     async function getProduct(productId) {

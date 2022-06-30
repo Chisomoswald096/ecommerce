@@ -8,12 +8,15 @@ const EditProductPage = (props) => {
     const [name, setName] = useState("");
     const [image, setImage] = useState("");
     const [price, setPrice] = useState(0);
-
+const [success, setSuccess] = useState("");
+    
     useEffect(() => {
         const userInfo = JSON.parse(localStorage.getItem("userInfo"));
-        !userInfo && props.history.push("/");
-    });
-
+        !userInfo || !userInfo.isAdmin && props.history.push("/");
+            if (success) {
+                history.push("/admin-products");
+            }
+         }, [history, success]);
 
 
 

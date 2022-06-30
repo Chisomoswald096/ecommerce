@@ -7,6 +7,7 @@ export default function AddCategoryPage(props) {
 
 const [name, setName] = useState("");
 const [message, setMessage] = useState("")
+const[success, setSuccess] = useState("");
 
 
 
@@ -25,6 +26,15 @@ async function submitHandler(e){
     }
    
 }
+
+    useEffect(() => {
+        const userInfo = JSON.parse(localStorage.getItem("userInfo"));
+        !userInfo || !userInfo.isAdmin && props.history.push("/");
+        if (success) {
+            history.push("/admin-products");
+        }
+    }, [history, success]);
+
     return <> <div>  {message && <div className="alert alert-danger p-2">{message}</div> }
      <form action="" onSubmit={submitHandler} className="form">
     <input type="text" value={name} onChange={e=> setName(e.target.value)} placeholder ="Category name"/>

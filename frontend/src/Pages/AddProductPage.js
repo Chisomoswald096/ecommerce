@@ -10,6 +10,7 @@ export default function AddProduct(props) {
     const [price, setPrice] = useState("");
     const [loading, setLoading] = useState(false);
     const [uploading, setUploading] = useState(false);
+    const[success, setSuccess] = useState("");
 
     const [categories, setCategories] = useState([])
     const [category, setCategory] = useState("")
@@ -18,7 +19,12 @@ export default function AddProduct(props) {
     useEffect(() => {
         const userInfo = JSON.parse(localStorage.getItem("userInfo"));
         !userInfo || !userInfo.isAdmin && props.history.push("/");
-    });
+            if (success) {
+                history.push("/admin-products");
+            }
+        }, [history, success]);
+
+    
 
 
     async function submitHandler(e) {

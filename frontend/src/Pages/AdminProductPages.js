@@ -1,19 +1,26 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios'; 
+import { useHistory } from 'react-router-dom';
 
 export default function AdminProduct(props) {
 
     const [products, setProducts] = useState("");
+    const[success, setSuccess] = useState("");
 
     async function deleteHandler(id) {
         window.location.reload();
         const{data} = await axios.delete(`http://localhost:5000/products/${id}`);
     }
-
+const history = useHistory();
     useEffect(() => {
         const userInfo = JSON.parse(localStorage.getItem("userInfo"));
         !userInfo && props.history.push("/");
-    });
+        if (success) {
+            history.push("/admin-products");
+        }
+     }, [history, success]);
+
+    
 
 
     useEffect(() => {
