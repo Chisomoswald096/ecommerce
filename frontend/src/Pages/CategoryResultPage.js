@@ -28,7 +28,7 @@ useEffect(() => {
    const userInfo = JSON.parse(localStorage.getItem("userInfo"));
    !userInfo || !userInfo.isAdmin && props.history.push("/");
    if (success) {
-       history.push("/admin-products");
+       history.push("/admin-category");
    }
 }, [history, success]);
 
@@ -36,7 +36,6 @@ useEffect(() => {
   return <>
     
     <div>
-      <a className="btn btn-danger mt-2 ms-3" href="/add-product">Add Product</a>
 
       <div className="container">
         <div className="row">
@@ -49,7 +48,7 @@ useEffect(() => {
                   <h5 className="card-title"></h5>
                   <p className="card-text">{product.name}</p>
 
-                  <a href="/" className="btn btn-outline-danger w-100">NGN{product.price}</a>
+                  <a href="#" className="btn btn-outline-danger w-100">NGN{product.price}</a>
 
                   <div className="d-flex justify-content-between mt-2">
                     <a style={{ display: "block", margin: "auto" }} href={`/cart/${product._id}`}><button className="btn btn-danger ">Add To Cart</button></a>

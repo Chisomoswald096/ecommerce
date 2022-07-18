@@ -1,5 +1,5 @@
 body{
-  background-color: bisque;
+  background-color: rgb(159, 123, 79);
   justify-content: center;
   text-align: center;
   min-height: 50rem;
@@ -7,7 +7,8 @@ body{
 
 
 nav.navbar{
-  background-color: red !important;
+  background-color: rgb(57, 3, 3) !important;
+  color: rgb(92, 79, 4);
   /* position: fixed;
   display: block;
   width: 100%;
@@ -92,8 +93,10 @@ header input{
   cursor: pointer;
 }
 footer.bg-dark.text-center.text-white{
-  background-color:blanchedalmond !important;
-  color: black !important;
+  background-color: rgb(159, 123, 79) !important;
+}
+div.container.p-4{
+  background-color: rgb(57, 3, 3) !important;
 }
 @media  (max-width: 1200px){
   .cartpage{
@@ -190,7 +193,7 @@ div.container.p-4{
 }
 .category-sidebar{
   width: 25%;
-  background-color: red;
+  background-color: rgb(57, 3, 3);
   display: flex ;
   flex-direction: column !important;
   text-align: center;
@@ -217,8 +220,28 @@ div.container.p-4{
 }
 .category-toggler{
   cursor: pointer;
-
 }
+.tableadmin-details{
+  flex: 1;
+  box-shadow:1px 1px 1px 1px black ;
+  padding: 1rem;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 10rem;
+}
+.tableadmin-order {
+    flex: 1;
+    box-shadow:1px 1px 1px 1px black ;
+    padding: 1rem;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 10rem;
+}
+
 
 
 

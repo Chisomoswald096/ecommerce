@@ -1,7 +1,6 @@
 import axios from "axios"
 import { useEffect, useState } from "react"
 import { useHistory } from "react-router-dom"
-import Loading from "../components/Loading"
 
 export default function AddCategoryPage(props) {
 
@@ -13,7 +12,6 @@ const[success, setSuccess] = useState("");
 
 const history = useHistory();
 async function submitHandler(e){
-    
     e.preventDefault();
     props.history.push("/admin-category")
     const {data} = await axios.post("http://localhost:5000/category", {name});
@@ -29,7 +27,7 @@ async function submitHandler(e){
 
     useEffect(() => {
         const userInfo = JSON.parse(localStorage.getItem("userInfo"));
-        !userInfo || !userInfo.isAdmin && props.history.push("/");
+         !userInfo.isAdmin && props.history.push("/");
         if (success) {
             history.push("/admin-products");
         }

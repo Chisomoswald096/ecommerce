@@ -34,9 +34,9 @@ const[success, setSuccess] = useState("")
     const history = useHistory();
 useEffect(() => {
    const userInfo = JSON.parse(localStorage.getItem("userInfo"));
-   !userInfo || !userInfo.isAdmin && props.history.push("/");
+   !userInfo  && props.history.push("/");
    if (success) {
-       history.push("/admin-products");
+       history.push("/cart");
    }
 }, [history, success]);
 
@@ -48,10 +48,10 @@ useEffect(() => {
         window.location.reload();
     }
 
-    function del() {
-        localStorage.removeItem("cartItems");
-        window.location.reload();
-    }
+    // function del() {
+    //     localStorage.removeItem("cartItems");
+    //     window.location.reload();
+    // }
 
     useEffect(() => {
         if (productId) {
@@ -60,6 +60,10 @@ useEffect(() => {
 
     }, [productId])
 
+    // when we use && it means the two conditions stated will be met b4 the code will run
+    // when we use || it means if one of the conditions are met the code will run
+//note when we use : in mapping it means that if the first condition is not met the following
+//code will not run, just like the code below.
     return <div className="cartpage" >
 
         {cartItems.length === 0 ? <div className="alert alert-primary cart-item" >No Item in cart</div>
@@ -93,13 +97,13 @@ useEffect(() => {
 
             </table>
         }
-
-        <div>
+ 
+        {/* <div>
             <button className="btn btn-danger mt-2" onClick={del} >Delete</button>
-        </div>
+        </div> */}
 
         <div className="cart-total mb-2">
-            <a href="/checkout" className="montage mb-3">checkout</a>
+            <a href="/checkout" className="montage mb-3 btn btn-dark lg">checkout</a>
             <h4>The Total Of {cartItems.reduce((a, c) => a + Number(c.qty), 0)} items </h4>
             <h2>NGN{(cartItems.reduce((a, c) => a + c.price * c.qty, 0)).toLocaleString()}</h2>
 

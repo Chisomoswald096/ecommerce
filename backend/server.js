@@ -6,6 +6,7 @@ const User = require("./models/userModel");
 const Product = require("./models/productModel");
 const Category = require("./models/categoryModel");
 const Favourite = require("./models/favouriteModel");
+const Order = require ("./models/orderModel");
 const path = require("path")
 
 const res = require("express/lib/response");
@@ -14,9 +15,42 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
+// note
+// when getting all it is find()
+// when posting it is findOne()
+//  when getting a single item it is findById() 
 
+//orders
+app.post("/api/orders", async function(req, res){
+    console.log(req.body);
+    const newOrders = new Order({
+        address : req.body.address,
+        city: req.body.city,
+        state: req.body.state,
+        number: req.body.number,
+        items: req.body.items,
+    });
+    await newOrders.save();
+    res.send({success:"orders save successfully"})
+    console.log(" orders saved successfully")
+})
+//get orders
+app.get("/api/orders", async function(req, res){
+   const orders =  await Order.find();
+    res.send(orders);
+    console.log(orders)
+     
+})
+//get a single order
+app.get("/api/order/:id", async function(req, res){
+       
+     const orderId = req.params.id;
+   
+     const order = await Order.findById(orderId)
 
-
+     res.send(order);
+     console.log(order)
+})
 
 
 
@@ -140,8 +174,6 @@ app.delete("/products/:id", async function (req, res) {
     await product.deleteOne();
     console.log("product deleted successfully");
 })
-
-
 //update a product
 app.put("/products/:id", async function (req, res) {
     const productId = req.params.id;
@@ -160,13 +192,31 @@ app.put("/products/:id", async function (req, res) {
 })
 
 
+
+//update a category
+app.put("/category/:id", async function (req, res) {
+    const categoryId = req.params.id;
+    const category = await Category.findById(categoryId);
+    if (category) {
+        category.name = req.body.name;
+        await category.save();
+    }
+    else {
+        console.log("Category was not found");
+    }
+
+})
+
+
 //get summary
 app.get("/summary", async (req, res)=>{
     const products = await Product.countDocuments();
     const users = await User.countDocuments();
-    const Category = await Category.countDocuments();
-    res.send({products, users, Category});
-    console.log({products, users, Category});
+    const category = await Category.countDocuments();
+    const orders = await Order.countDocuments();
+
+    res.send({products, users, Category, Order });
+    console.log({products, users, Category, Order});
 })
 
 
@@ -201,6 +251,8 @@ app.delete("/category/:id", async function (req, res) {
     await category.deleteOne();
     console.log("category deleted successfully");
 })
+
+
 //get a category
 app.get("/category/:id", async function (req, res) {
     const categoryId = req.params.id;
@@ -211,14 +263,18 @@ app.get("/category/:id", async function (req, res) {
         console.log("Category was not found");
     }
 })
+
+
+
+
 //get all product in a category
 app.get("/category-products/:id", async (req, res)=>{
     const products = await Product.find({categoryId : req.params.id})
     res.send(products);
 })
 
-//const MongoDBUrl = "mongodb://127.0.0.1:27017/ecommerce";
-const MongoDBUrl = "mongodb+srv://chisomoswald096:chisomoswald096@pedromontage.yfniu.mongodb.net/?retryWrites=true&w=majority"
+const MongoDBUrl = "mongodb://127.0.0.1:27017/ecommerce";
+// const MongoDBUrl = "mongodb+srv://chisomoswald096:chisomoswald096@pedromontage.yfniu.mongodb.net/?retryWrites=true&w=majority"
 
 mongoose.connect(MongoDBUrl)
     .then(result => console.log("mongodb connected"))

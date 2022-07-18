@@ -17,16 +17,17 @@ const[success, setSuccess] = useState("");
 
     }, [categoryId])
 
+
+    const history = useHistory();
     useEffect(() => {
         const userInfo = JSON.parse(localStorage.getItem("userInfo"));
-        !userInfo ||!userInfo.isAdmin && props.history.push("/");
+        !userInfo.isAdmin && props.history.push("/");
             if (success) {
-                history.push("/admin-products");
+                history.push("/admin-category");
             }
          }, [history, success]);
     
 
-    const history = useHistory();
     async function submitHandler(e) {
         e.preventDefault();
         history.push("/admin-category")
@@ -35,13 +36,7 @@ const[success, setSuccess] = useState("");
     }
 
 
-    useEffect(() => {
-        const userInfo = JSON.parse(localStorage.getItem("userInfo"));
-        !userInfo || !userInfo.isAdmin && props.history.push("/");
-        if (success) {
-            history.push("/admin-products");
-        }
-     }, [history, success]);
+    
 
 
     return <>

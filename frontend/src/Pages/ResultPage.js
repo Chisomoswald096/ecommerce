@@ -24,7 +24,7 @@ const[success, setSuccess] = useState("");
 const history = useHistory();
   useEffect(() => {
     const userInfo = JSON.parse(localStorage.getItem("userInfo"));
-    !userInfo ||!userInfo.isAdmin && props.history.push("/");
+    !userInfo || !userInfo.isAdmin && props.history.push("/");
         if (success) {
             history.push("/admin-products");
         }

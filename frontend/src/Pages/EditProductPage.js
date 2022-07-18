@@ -12,7 +12,7 @@ const [success, setSuccess] = useState("");
     
     useEffect(() => {
         const userInfo = JSON.parse(localStorage.getItem("userInfo"));
-        !userInfo || !userInfo.isAdmin && props.history.push("/");
+        !userInfo.isAdmin && props.history.push("/");
             if (success) {
                 history.push("/admin-products");
             }
@@ -26,6 +26,8 @@ const [success, setSuccess] = useState("");
         setImage(data.image);
         setPrice(data.price);
     }
+
+    const history = useHistory();
     useEffect(() => {
         getProduct(productId);
 
@@ -33,7 +35,6 @@ const [success, setSuccess] = useState("");
 
 
 
-    const history = useHistory();
     async function submitHandler(e) {
         e.preventDefault();
         history.push("/adminproduct")
@@ -44,7 +45,7 @@ const [success, setSuccess] = useState("");
 
     return <> <div>
         <form onSubmit={submitHandler} className="form">
-            <h3>Add Product</h3>
+            <h3>Update Product</h3>
             <input value={name} onChange={e => setName(e.target.value)} type="text" placeholder="product Name" />
             <br />
             <input value={image} onChange={e => setImage(e.target.value)} type="text" placeholder="product Image" />

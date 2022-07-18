@@ -1,6 +1,6 @@
 import axios from "axios"
 import { useEffect, useState } from "react"
-import { Link, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 
 
 
@@ -17,9 +17,9 @@ export default function AdminCategoryPage(props) {
 const history = useHistory();
     useEffect(() => {
         const userInfo = JSON.parse(localStorage.getItem("userInfo"));
-        !userInfo || !userInfo.isAdmin && props.history.push("/");
+         !userInfo.isAdmin && props.history.push("/");
         if (success) {
-            history.push("/admin-products");
+            history.push("/admin-category");
         }
     }, [history, success]);
 
@@ -30,9 +30,14 @@ const history = useHistory();
         alert("deleted successfully")
     }
 
+   
+
     useEffect(() => {
         getCategory();
     }, [])
+
+
+
 
 
 

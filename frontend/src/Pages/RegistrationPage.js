@@ -52,7 +52,7 @@ export default function RegisterPage(props) {
             <br />
             <input required type="password" value={password} onChange={e => setPassword(e.target.value)} placeholder="Enter Password" />
             <br />
-            <button type="submit" className="btn-lg btn-danger" >Register</button>
+            <button type="submit" className="btn-lg btn-danger">Register</button>
         </form>
     </>
 }

@@ -17,18 +17,21 @@ const {data} = await axios.get("http://localhost:5000/summary");
   setCategory(data.category)
   setOrders(data.orders)
 }
-const history = useHistory();
-useEffect(() => {
-   const userInfo = JSON.parse(localStorage.getItem("userInfo"));
-   !userInfo || !userInfo.isAdmin && props.history.push("/");
-   if (success) {
-       history.push("/admin-products");
-   }
-}, [history, success]);
-
 useEffect(()=>{
    getSummary();
 })
+
+
+const history = useHistory();
+useEffect(() => {
+   const userInfo = JSON.parse(localStorage.getItem("userInfo"));
+    !userInfo.isAdmin && props.history.push("/");
+   if (success) {
+       history.push("/admin-dashboard");
+   }
+}, [history, success]);
+
+
 
 
    return <div className="container dashboard">
@@ -76,7 +79,6 @@ useEffect(()=>{
                   <h2 className="card-title"><i className="fa fa-money-bill "></i></h2>
                   <h1 className="card-text  text-center text-center text-white">Orders</h1>
                   <h1 className="card-text  text-center text-center text-white ">{orders}</h1>
-
                </div>
             </div>
          </div>

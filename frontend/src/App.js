@@ -21,6 +21,9 @@ import AdminCategoryPage from './Pages/AdminCategoryPage';
 import AdminDashBoardPage from './Pages/AdminDashBoardPage';
 import EditCategoryPage from './Pages/EditCategoryPage';
 import CategoryResultPage from './Pages/CategoryResultPage';
+import AdminOrderPage from './Pages/AdminOrderPage';
+import OrderDetailsPage from './Pages/OrderDetailsPage';
+
 
 
 
@@ -37,7 +40,7 @@ function App() {
     <Route path="/" exact component= {HomePage} />
   <Route path="/login" component= {LoginPage} />
   <Route path="/register" component= {RegistrationPage} />
-  <Route path="/adminProduct" component= {AdminProduct} />
+  <Route path="/admin-product" component= {AdminProduct} />
   <Route path="/add-product" component= {AddProduct} />
   {/* <Route path="/favourites" component= {favourites} /> */}
   {/* <Route path="/calculator" component= {calculator} /> */}
@@ -53,6 +56,10 @@ function App() {
   <Route path="/admin-dashboard" component= {AdminDashBoardPage} />
   <Route path="/edit-category/:id" component= {EditCategoryPage} />
   <Route path="/category/:id" component= {CategoryResultPage} />
+  <Route path="/admin-order" component= {AdminOrderPage} />
+  <Route path="/order-details/:id" component= {OrderDetailsPage} />
+
+
 
 
 

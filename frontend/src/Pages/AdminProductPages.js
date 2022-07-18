@@ -11,18 +11,23 @@ export default function AdminProduct(props) {
         window.location.reload();
         const{data} = await axios.delete(`http://localhost:5000/products/${id}`);
     }
+
+
+
+
 const history = useHistory();
     useEffect(() => {
         const userInfo = JSON.parse(localStorage.getItem("userInfo"));
-        !userInfo && props.history.push("/");
+         !userInfo.isAdmin && props.history.push("/");
         if (success) {
             history.push("/admin-products");
         }
      }, [history, success]);
 
+
+
+
     
-
-
     useEffect(() => {
         async function getProducts() {
             const { data } = await axios.get("http://localhost:5000/products");
@@ -36,8 +41,14 @@ const history = useHistory();
 
     }, [setProducts])
 
+
+
+
+
     return <div>
         <a className="btn btn-danger mt-2 ms-3" href="/add-product">Add Product</a>
+        <a className="btn btn-danger mt-2 ms-3" href="/add-category">Add Category</a>
+
 
         <div className="container">
             <div className="row">
@@ -50,7 +61,7 @@ const history = useHistory();
                                 <h5 className="card-title"></h5>
                                 <p className="card-text">{product.name}</p>
 
-                                <a href="/" className="btn btn-outline-primary w-100">NGN{product.price}</a>
+                                <a href="#" className="btn btn-outline-primary w-100">NGN{product.price}</a>
 
                                 <div className="d-flex justify-content-between mt-2">
                                  <a href={`/edit-product/${product._id}`}> <button className="btn btn-primary">Edit</button></a>  

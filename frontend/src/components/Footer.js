@@ -71,10 +71,9 @@ export default function Footer(params) {
 
                 {/* <!-- Section: Text --> */}
                 <section className="mb-4">
-                    <p>
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Sunt distinctio earum
-                        repellat quaerat voluptatibus placeat nam, commodi optio pariatur est quia magnam
-                        eum harum corrupti dicta, aliquam sequi voluptate quas.
+                    <p > 
+                       at montage eatree, we give our esteemed customers mouth watering meals with pocket friendly budgets, to our to be new customers book a day
+                       with us an enjoy the very best of local and inter-continental dishes. thanks for petronising montage eatree you are the best.<i class="fa-solid fa-thumbs-up"></i>
                     </p>
                 </section>
                 {/* <!-- Section: Text --> */}

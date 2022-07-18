@@ -41,7 +41,7 @@ export default function LoginPage(props) {
         <br />
         <button class="btn btn-danger" type="submit">Login</button>
         <br />
-        <a href="/" className="btn btn-secondary">FORGOT PASSWORD?</a>
+        <a href="#" className="btn btn-secondary">FORGOT PASSWORD?</a>
     </form>
     </>
 }
